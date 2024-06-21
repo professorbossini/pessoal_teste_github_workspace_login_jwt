@@ -1,24 +1,51 @@
 {
-  "name": "Login Endpoint Test",
-  "request": {
-    "method": "POST",
-    "url": "http://localhost:3000/login",
-    "body": {
-      "mode": "raw",
-      "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"testpass\"\n}"
-    },
-    "headers": [
+  "collection": {
+    "name": "Login Tests",
+    "requests": [
       {
-        "key": "Content-Type",
-        "value": "application/json"
+        "name": "Login Endpoint Test",
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/login",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"testpass\"\n}"
+          },
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "response": {
+          "status": 200,
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"accessToken\": \"<JWT_TOKEN_HERE>\"\n}"
+          }
+        }
+      },
+      {
+        "name": "Token Validation Test",
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/validate-token",
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <JWT_TOKEN_HERE>"
+            }
+          ]
+        },
+        "response": {
+          "status": 200,
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"valid\": true\n}"
+          }
+        }
       }
     ]
-  },
-  "response": {
-    "status": 200,
-    "body": {
-      "mode": "raw",
-      "raw": "{\n  \"accessToken\": \"<JWT_TOKEN_HERE>\"\n}"
-    }
   }
 }
